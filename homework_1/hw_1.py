@@ -16,7 +16,7 @@ def find_u(base: int):
 
 
 # Ex. 1:
-# print(find_u(10))
+print(f"u is: {find_u(10)}\n")
 # print(1.0 + 1e-16 == 1.0)
 # print(1.0 + 1e-15 == 1.0)
 
@@ -36,8 +36,10 @@ def compute_unassoc_multiplication(u: float):
 
 
 # Ex. 2
-# print(check_associativity(find_u(10)))
-# print(compute_unassoc_multiplication(find_u(10)))
+print(f"Sum is unassociative: {check_associativity(find_u(10))}\n")
+print(
+    f"Multiplication is unassociative for the given example: {compute_unassoc_multiplication(find_u(10))}\n"
+)
 
 
 def compute_polynom(y: float, c0: float, c1: float, c2: float, c3: float, c4: float):
