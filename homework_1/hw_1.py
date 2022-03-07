@@ -17,8 +17,8 @@ def find_u(base: int):
 
 # Ex. 1:
 print(f"u is: {find_u(10)}\n")
-# print(1.0 + 1e-16 == 1.0)
-# print(1.0 + 1e-15 == 1.0)
+print(1.0 + 1e-16 == 1.0)
+print(1.0 + 1e-15 == 1.0)
 
 
 def check_associativity(u: float):
@@ -151,6 +151,6 @@ def approximate_ln(x: float):
 # Ex. 3
 approximate_sin(0.5)
 print()
-approximate_cos(0.5)
+approximate_cos(2)
 print()
-approximate_ln(1.2)
+approximate_ln(-2)
