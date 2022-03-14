@@ -1,12 +1,14 @@
 import numpy as np
 
+def I3():
+    return np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
 
 def example_A():
     return np.array([[2, 0, 1], [0, 2, 1], [4, 4, 6]])
 
 
 def example_B():
-    return [[5], [1], [14]]
+    return np.array([[5], [1], [14]])
 
 
 def generate_A(n: int):
@@ -67,11 +69,11 @@ def gauss_elimination(A, B, n, eps):
         else:
             B = A[:, n]
             A = A[:, 0:n]
-            print(solve_upper_triangular_matrix(A, B, n))
+            return solve_upper_triangular_matrix(A, B, n)
 
 
 def solve_upper_triangular_matrix(A, b, n):
-    x_gauss = np.zeros(n)
+    x_gauss = np.zeros((n, 1))
 
     for i in range(n - 1, -1, -1):
         temp = b[i]
@@ -82,5 +84,53 @@ def solve_upper_triangular_matrix(A, b, n):
     return x_gauss
 
 
-gauss_elimination(example_A(), example_B(), 3, pow(10, -5))
-gauss_elimination(generate_A(5), generate_B(5), 5, pow(10, -5))
+def check_using_first_norm(A_init, x_gauss, b_init):
+    print("\tChecking solution via ||A_init x_gauss - b_init||2 ...")
+    result_norm = np.linalg.norm(np.subtract(A_init @ x_gauss, b_init))
+    print(f"Norm = {result_norm}\n")
+    return result_norm
+
+
+def system_solution_by_numpy(A_init, b_init):
+    print("\tSystem solution by numpy:")
+    solution = np.linalg.solve(A_init, b_init)
+    print(solution, "\n")
+    return solution
+
+
+def inverse_of_matrix(matrix):
+    print("\tInverse of matrix:")
+    print(matrix, " \nis: ")
+    inverse_matrix = np.linalg.inv(matrix)
+    print(inverse_matrix, "\n")
+    return inverse_matrix
+
+
+def get_x_x_norm(x_gauss, x_bibl):
+    print("\tNorm of ||x_gauss - x_bibl||2 is: ")
+    norm = np.linalg.norm(np.subtract(x_gauss, x_bibl))
+    print(norm)
+    return norm
+
+
+def get_x_A_norm(x_gauss, A_bibl_invers, b_init):
+    print("\tNorm of || x_gauss - Abibl-1 X b_init ||2 is: ")
+    norm = np.linalg.norm(np.subtract(x_gauss, A_bibl_invers @ b_init))
+    print(norm)
+    return norm
+
+
+A_init = example_A()
+b_init = example_B()
+
+print(gauss_elimination(generate_A(5), generate_B(5), 5, pow(10, -5)))
+
+x_gauss = gauss_elimination(A_init.copy(), b_init.copy(), 3, pow(10, -5))
+print(f"\tSystem solution: \n", x_gauss)
+
+check_using_first_norm(A_init, x_gauss, b_init)
+system_solution_by_numpy(A_init, b_init)
+inverse_of_matrix(A_init)
+get_x_x_norm(x_gauss, system_solution_by_numpy(A_init, b_init))
+get_x_A_norm(x_gauss, inverse_of_matrix(A_init), b_init)
+
