@@ -2,16 +2,24 @@ import json
 
 from deepdiff import DeepDiff
 
-epsilon = pow(10,-6)
+epsilon = pow(10, -6)
 
 
 def compare_matrix_json(C, D, n_C, n_D):
 
     for i in range(0, n_C):
         for j in range(0, n_C):
-            if str(i) in C.keys() and str(j) in C[str(i)].keys() and not (i in D.keys() and j in D[i].keys()):
+            if (
+                str(i) in C.keys()
+                and str(j) in C[str(i)].keys()
+                and not (i in D.keys() and j in D[i].keys())
+            ):
                 return False
-            if i in D.keys() and j in D[i].keys() and not (str(i) in C.keys() and str(j) in C[str(i)].keys()):
+            if (
+                i in D.keys()
+                and j in D[i].keys()
+                and not (str(i) in C.keys() and str(j) in C[str(i)].keys())
+            ):
                 return False
 
             if int(i) in C.keys() and int(j) in C[i].keys():
@@ -25,9 +33,17 @@ def compare_matrix(C, D, n_C, n_D):
 
     for i in range(0, n_C):
         for j in range(0, n_C):
-            if i in C.keys() and j in C[i].keys() and not (i in D.keys() and j in D[i].keys()):
+            if (
+                i in C.keys()
+                and j in C[i].keys()
+                and not (i in D.keys() and j in D[i].keys())
+            ):
                 return False
-            if i in D.keys() and j in D[i].keys() and not (i in C.keys() and j in C[i].keys()):
+            if (
+                i in D.keys()
+                and j in D[i].keys()
+                and not (i in C.keys() and j in C[i].keys())
+            ):
                 return False
 
             if i in C.keys() and j in C[i].keys():
@@ -116,13 +132,29 @@ def times_matrix(file_A, file_B):
                     a = A[i][k]
                 if k in A.keys() and j in A[k].keys():
                     b = A[k][j]
-                if not (i in A.keys() and k in A[i].keys()) and k in A.keys() and i in A[k].keys():
+                if (
+                    not (i in A.keys() and k in A[i].keys())
+                    and k in A.keys()
+                    and i in A[k].keys()
+                ):
                     a = A[k][i]
-                if i in A.keys() and k in A[i].keys() and not(k in A.keys() and i in A[k].keys()):
+                if (
+                    i in A.keys()
+                    and k in A[i].keys()
+                    and not (k in A.keys() and i in A[k].keys())
+                ):
                     a = A[i][k]
-                if not (j in A.keys() and k in A[j].keys()) and k in A.keys() and j in A[k].keys():
+                if (
+                    not (j in A.keys() and k in A[j].keys())
+                    and k in A.keys()
+                    and j in A[k].keys()
+                ):
                     b = A[k][j]
-                if j in A.keys() and k in A[j].keys() and not(k in A.keys() and j in A[k].keys()):
+                if (
+                    j in A.keys()
+                    and k in A[j].keys()
+                    and not (k in A.keys() and j in A[k].keys())
+                ):
                     b = A[j][k]
 
                 sum += a * b
@@ -159,4 +191,3 @@ print(times_matrix("test1.txt", "test1.txt"))
 # # print(a_times_a)
 # (n_AA, AA) = read_matrix("a_ori_a.txt")
 # print(compare_matrix_json(a_times_a, AA, len(a_times_a), n_AA))
-
