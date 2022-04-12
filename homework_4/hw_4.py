@@ -49,7 +49,7 @@ def solve_with_jacobi(A, b, n_A):
     while delta >= EPSILON and delta <= pow(10, 8) and step <= MAX_STEP:
         x_p = x_c.copy()
         for position, _ in A.items():
-            step += 1
+
             x_c[position[0]] = 0.0 * x_c[position[0]]
             first_sum = 0
             second_sum = 0
@@ -63,6 +63,7 @@ def solve_with_jacobi(A, b, n_A):
             for i in range(n_A):
                 diff[i] = x_c[i] - x_p[i]
             delta = np.linalg.norm(diff)
+        step += 1
     if delta < EPSILON:
         print(f"Solution: {x_c} was found after {step} iterations")
         return x_c
