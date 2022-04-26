@@ -229,7 +229,7 @@ if P == N:
     print("\nU: ")
     print(U)
 
-    print("\n||A init * U - U ADiag")
+    print("\n||A init * U - U ADiag ||")
     print(np.linalg.norm(copy_A @ U - U @ arr))
 
     lib_eigen = np.linalg.eigh(copy_A)
@@ -251,10 +251,11 @@ if P == N:
     print(sum)
 else:
     P -= 1
-    # A = [[0., 0., 1.],
-    #      [0., 0., 1.],
-    #      [1., 1., 1.]]
-    # A = np.array(A)
+    A = [[0., 0., 1.],
+         [0., 0., 1.],
+         [1., 1., 1.],
+         [1., 1., 1.]]
+    A = np.array(A)
     svd = np.linalg.svd(A)
     print('\nSingular values of matrix A using SVD:')
     print(svd[1])
@@ -273,7 +274,7 @@ else:
     min_plus = 9999
     max_plus = -9999
     for i in svd[1]:
-        if i > 0:
+        if i > pow(10, -6):
             if min_plus > i:
                 min_plus = i
         if max_plus < i:
